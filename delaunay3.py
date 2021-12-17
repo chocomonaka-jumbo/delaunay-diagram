@@ -73,6 +73,10 @@ def hsv_to_rgb(h, s, v):
         g = min
         r = max
     
+    b = int(b)
+    g = int(g)
+    r = int(r)
+    
     return (b,g,r)
 
 
@@ -92,7 +96,6 @@ def get_color(a1,a2,a3,ave,ave_max,ave_min):
     n = (ave_3pts-ave_max)/(ave_max-ave_min)
     #s値を40から225の間の値に変換
     s = n*(255-40) + 255
-    
     v = 255
     bgr = hsv_to_rgb(h,s,v)
     

@@ -1,6 +1,6 @@
 import unittest
 import delaunay2
-import numpy as np
+
 
 class TestDelaunayDiagram(unittest.TestCase):
     """test class of delaunay.py
@@ -13,8 +13,8 @@ class TestDelaunayDiagram(unittest.TestCase):
         test_n = 50
         
         expected = (test_n, 3)
-        result = delauney2.getRandom2DPoints(test_width, test_height, test_n)
-        self.assetEqual(expected, result.shape)
+        result = delaunay2.getRandom2DPoints(test_width, test_height, test_n)
+        self.assertEqual(expected, result.shape)
     
     def test_get_color(self):
         """test method for get_color
