@@ -196,7 +196,7 @@ def main():
 
     for p in pts:
         cv2.circle(img, (p[0],p[1]), 4, (0, 0, 0), thickness=-1, lineType=cv2.LINE_AA)
-   
+    
     cv2.imwrite('test2.png', img)
 
 

@@ -1,4 +1,4 @@
-#python3 -m unittest discover"
+#python3 -m unittest discover test_delaunay3"
 
 import unittest
 import delaunay3
