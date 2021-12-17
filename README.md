@@ -19,5 +19,7 @@
 5. リポートリポジトリへpush<br>
   git push origin 開発用ブランチ名<br>
   
-6. GitHub上でpull requestする<br>
-7. masterブランチにmerge<br>
+6. masterブランチに移動<br>
+  git checkout master
+8. リモートからマージしたファイルを取得<br>
+  git pull origin ブランチ名
