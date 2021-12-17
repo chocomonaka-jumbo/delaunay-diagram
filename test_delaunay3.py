@@ -13,7 +13,7 @@ class TestDelaunayDiagram(unittest.TestCase):
         test_n = 50
         
         expected = (test_n, 3)
-        result = delauney3.getRandom2DPoints(test_width, test_height, test_n)
+        result = delaunay3.getRandom2DPoints(test_width, test_height, test_n)
         self.assetEqual(expected, result.shape)
     
     
