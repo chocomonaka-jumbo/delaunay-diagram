@@ -73,7 +73,7 @@ def hsv_to_rgb(h, s, v):
         elif h >= 240 and h < 300:
             b = ma
             g = mi
-            r  = ((h-240)/60)*(ma-mi)+mi
+            r = ((h-240)/60)*(ma-mi)+mi
         else:
             b = ((360-h)/60)*(ma-mi)+mi
             g = mi
@@ -90,18 +90,23 @@ def hsv_to_rgb(h, s, v):
 
 
 def get_color(a1,a2,a3,ave,ave_max,ave_min):
+    #h: 0~360
+    #s: 0~255
+    #v: 0~255
     
     #3点の平均値
     ave_3pts = (a1+a2+a3)/3
     
-    if ave_3pts > ave:
-        h = 0
-    else:
+    if ave_3pts > ave:#平均よりも高い点は赤色
+        h = 360
+    else:#平均よりも低い点は青色
         h = 240
-    #正規化
-    n = (ave_3pts-ave_max)/(ave_max-ave_min)
-    #s値を40から225の間の値に変換
-    s = n*(255-40) + 255
+    #40~255に正規化
+    if ave_max==ave_min:#0で割らないように
+        s=40
+    else:
+        s = (ave_3pts-ave_min)/(ave_max-ave_min)*(255-40) + 40
+    
     v = 255
     bgr = hsv_to_rgb(h,s,v)
     
@@ -120,9 +125,9 @@ def get_ave(array,inner_pts):
         pts3 = array[(int)(inner_pts[i][2][0])][(int)(inner_pts[i][2][1])]
         ave_3pts = (pts1 + pts2 + pts3)/3
         list.append(ave_3pts)
-    ave = np.mean(list)
-    ave_max = np.amax(list)
-    ave_min = np.amin(list)
+    ave = np.mean(list)#3点の平均値の平均
+    ave_max = np.amax(list)#3点の平均値の最大
+    ave_min = np.amin(list)#3点の平均値の最小
     return (ave,ave_max,ave_min)
 
 
