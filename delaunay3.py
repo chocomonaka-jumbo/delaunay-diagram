@@ -10,6 +10,7 @@ import math
 import colorsys
 
 
+
 # In[11]:
 
 
@@ -35,47 +36,52 @@ def getRandom2DPoints(width, height, n):
     
     pts = np.stack([x, y, temp], axis=1) 
     
-    return    pts
+    return pts
 
 
 # In[12]:
 
 
 def hsv_to_rgb(h, s, v):
-    #hsv値からrgb値に変換
-    #bgr = cv2.cvtColor(np.array([[[h,s,v]]], dtype=np.uint8), cv2.COLOR_HSV2BGR)[0][0]
-    
-    max = v
-    min = max - ((s/255)*max)
-    
-    if h >= 0 and h < 60:
-        b = min
-        g = (h/60)*(max-min) + min
-        r = max
-    elif h >= 60 and h < 120:
-        b = min
-        g = max
-        r = ((120-h)/60)*(max-min)+min
-    elif h >= 120 and h < 180:
-        b = ((h-120)/60)*(max-min)+min
-        g = max
-        r  = min
-    elif h >= 180 and h < 240:
-        b = max
-        g = ((240-h)/60)*(max-min)+min
-        r  = min
-    elif h >= 240 and h < 300:
-        b = max
-        g = min
-        r  = ((h-240)/60)*(max-min)+min
+    if  h<0 or s<0 or v<0 or h>360 or s>255 or v>255:
+        b=0
+        g=0
+        r=0
     else:
-        b = ((360-h)/60)*(max-min)+min
-        g = min
-        r = max
-    
-    b = int(b)
-    g = int(g)
-    r = int(r)
+        #hsv値からrgb値に変換
+        #bgr = cv2.cvtColor(np.array([[[h,s,v]]], dtype=np.uint8), cv2.COLOR_HSV2BGR)[0][0]
+        
+        ma = v
+        mi = ma - ((s/255)*ma)
+        
+        if h >= 0 and h < 60:
+            b = mi
+            g = (h/60)*(ma-mi) + mi
+            r = max
+        elif h >= 60 and h < 120:
+            b = mi
+            g = ma
+            r = ((120-h)/60)*(ma-mi)+mi
+        elif h >= 120 and h < 180:
+            b = ((h-120)/60)*(ma-mi)+mi
+            g = ma
+            r = mi
+        elif h >= 180 and h < 240:
+            b = ma
+            g = ((240-h)/60)*(ma-mi)+mi
+            r  = mi
+        elif h >= 240 and h < 300:
+            b = ma
+            g = mi
+            r  = ((h-240)/60)*(ma-mi)+mi
+        else:
+            b = ((360-h)/60)*(ma-mi)+mi
+            g = mi
+            r = ma
+        
+        b = int(b)
+        g = int(g)
+        r = int(r)
     
     return (b,g,r)
 
