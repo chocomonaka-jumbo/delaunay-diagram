@@ -1,31 +1,13 @@
-import unittest
-import delaunay2
+import pytest
+from delaunay2 import get_color
 
 
-class TestDelaunayDiagram(unittest.TestCase):
-    """test class of delaunay.py
-    """
-    
-    def test_getRandom2DPoints(self):
-        """test method for getRandom2DPoints"""
-        test_width = 100
-        test_height = 100
-        test_n = 50
-        
-        expected = (test_n, 3)
-        result = delaunay2.getRandom2DPoints(test_width, test_height, test_n)
-        self.assertEqual(expected, result.shape)
-    
-    def test_get_color(self):
-        """test method for get_color
-        """
-        value1 = 10
-        value2 = 10
-        value3 = 10
-        expected = (50,0,200)
-        actual = delaunay2.get_color(value1, value2, value3)
-        self.assertEqual(expected, actual)
-
-
-if __name__ == "__main__":
-    unittest.main()
+@pytest.mark.parametrize(('a1', 'a2', 'a3', 'b','g','r'), [
+    (120,100,150,0,0,255), #true
+    (0,0,0,0,0,0),#false
+    (-10,2,-15,0,0,0),#false
+    (12.5,24,60,94.16666666666669, 94.16666666666669, 255),#true
+    ('a',20,100,23,10,0)#false
+])
+def test_get_color(a1,a2,a3, b, g, r):
+    assert get_color(a1,a2,a3) == (b, g, r)

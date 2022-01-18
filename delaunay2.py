@@ -20,17 +20,18 @@ def openfile():
             i=i+1
         return pts
 
+#%%
 #rgb値求める
-def get_color2(a1,a2,a3):
+def get_color(a1,a2,a3):
     #平均値を求める
     ave = (a1+a2+a3)/3
     if (ave>=0):
         r = 255
-        g = 255 - ave*5
-        b = 255 - ave*5
+        g = max(255 - ave*5,0)
+        b = max(255 - ave*5,0)
     if (ave<0):
-        r = 255 + ave*5
-        g = 255 + ave*5
+        r = min(255 + ave*5,255)
+        g = min(255 + ave*5,255)
         b = 255
     return(b,g,r)
 
@@ -62,7 +63,7 @@ def DelaunayDiagram(imgd, subdiv,array):
     
     #3値を渡して色を設定
     for i in range(len(inner_pts)):
-        color_list[i]=get_color2(array[(int)(inner_pts[i][0][0])][(int)(inner_pts[i][0][1])],array[(int)(inner_pts[i][1][0])][(int)(inner_pts[i][1][1])],array[(int)(inner_pts[i][2][0])][(int)(inner_pts[i][2][1])])
+        color_list[i]=get_color(array[(int)(inner_pts[i][0][0])][(int)(inner_pts[i][0][1])],array[(int)(inner_pts[i][1][0])][(int)(inner_pts[i][1][1])],array[(int)(inner_pts[i][2][0])][(int)(inner_pts[i][2][1])])
     #図形の描画
     for i in range(len(inner_pts)):
         #三角形の描画
