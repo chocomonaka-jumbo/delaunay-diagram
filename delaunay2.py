@@ -1,14 +1,16 @@
 # coding: UTF-8
+#%%
 import cv2
 import numpy as np
 import math
 import colorsys
 import csv
+import sys
 
 #%%
-#ランダムで座標と値を発生
-def openfile():
-    with open('sst.csv','r') as f:
+
+def openfile(filename):
+    with open(filename,'r') as f:
         reader = csv.reader(f)
         pts = np.zeros((50,3))
         i = 0
@@ -18,6 +20,7 @@ def openfile():
                 pts[i-1][1]=line[1]
                 pts[i-1][2]=line[2]
             i=i+1
+        
         return pts
 
 #%%
@@ -34,12 +37,12 @@ def get_color(a1,a2,a3):
         r = min(255 + ave*5,255)
         g = min(255 + ave*5,255)
         b = 255
-    return(b,g,r)
+    return (b,g,r)
 
 
 #%%
-def DelaunayDiagram(imgd, subdiv,array):
-    
+def DelaunayDiagram(imgd, subdiv, array):
+
     height, width = imgd.shape[:2]
 
     # ドロネーの三角形
@@ -75,14 +78,15 @@ def DelaunayDiagram(imgd, subdiv,array):
         cv2.line(imgd,(inner_pts[i][1][0].astype(int),inner_pts[i][1][1].astype(int)),(inner_pts[i][2][0].astype(int),inner_pts[i][2][1].astype(int)),(0,0,0))
         cv2.line(imgd,(inner_pts[i][2][0].astype(int),inner_pts[i][2][1].astype(int)),(inner_pts[i][0][0].astype(int),inner_pts[i][0][1].astype(int)),(0,0,0))
 
+
 #%%
 def main():
     height = 300
     width = 300
     
     #点の生成
-    #pts = getRandom2DPoints(width,height,50)
-    pts = openfile()
+    filename = "sst.csv"
+    pts = openfile(filename)
     #白紙を作る
     img = np.full((height, width, 3), 255, np.uint8)
     
@@ -95,7 +99,7 @@ def main():
     for p in pts:
         subdiv.insert((int(p[0]), int(p[1])))
         array[int(p[0])][int(p[1])] = p[2]
-    print(subdiv)     
+    
     DelaunayDiagram(img, subdiv, array)
 
     for p in pts:
