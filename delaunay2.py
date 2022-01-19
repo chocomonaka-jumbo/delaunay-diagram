@@ -23,6 +23,7 @@ def openfile():
 #%%
 #rgb値求める
 def get_color(a1,a2,a3):
+    
     #平均値を求める
     ave = (a1+a2+a3)/3
     if (ave>=0):
@@ -38,6 +39,7 @@ def get_color(a1,a2,a3):
 
 #%%
 def DelaunayDiagram(imgd, subdiv,array):
+    
     height, width = imgd.shape[:2]
 
     # ドロネーの三角形
@@ -87,14 +89,13 @@ def main():
     rect = (0, 0, width, height)
     subdiv = cv2.Subdiv2D(rect)
     
-
     #(x1,y1,a1)の時、array[x1][y1]=a1とする
     array = np.zeros((width,height))
     
     for p in pts:
         subdiv.insert((int(p[0]), int(p[1])))
         array[int(p[0])][int(p[1])] = p[2]
-        
+    print(subdiv)     
     DelaunayDiagram(img, subdiv, array)
 
     for p in pts:
