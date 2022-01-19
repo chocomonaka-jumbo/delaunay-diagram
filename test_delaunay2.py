@@ -47,8 +47,10 @@ def test_DelaunayDiagram(make_img,make_subdiv_array):
     array = make_subdiv_array[1]
     assert DelaunayDiagram(make_img,subdiv,array) == None
     
-def test_error_DelaunayDiagram():
+def test_error_DelaunayDiagram(make_subdiv_array):
+    array = make_subdiv_array[1]
     with pytest.raises(Exception):
         DelaunayDiagram('','','')
+        DelaunayDiagram('','',array)
     #assert MyError in str(excinfo)
 
