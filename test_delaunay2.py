@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import cv2
 import csv
+import os
 from delaunay2 import get_color, DelaunayDiagram, openfile, main
 
 
@@ -112,4 +113,8 @@ def test_error_openfile():
     with pytest.raises(Exception):
         openfile("")
 
+def test_main():
+    assert main() == 0
 
+if __name__ == '__main__':  
+    pytest.main(['-v', __file__])
