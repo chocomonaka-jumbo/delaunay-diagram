@@ -105,9 +105,9 @@ def main():
     for p in pts:
         cv2.circle(img, (int(p[0]),int(p[1])), 4, (0,0,0), thickness=-1, lineType=cv2.LINE_AA)
 
-    cv2.imwrite('test3.png', img)
+    cv2.imwrite('test.png', img)
     return 0
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
 # %%
